@@ -1,3 +1,4 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -97,6 +98,12 @@ class _MyAppState extends State<MyApp> {
                     print("接受到返回数据"+value.toString());
                   });
                 }
+              ),
+              RaisedButton(
+                child: Text('打开 WIFI 设置'),
+                onPressed: () {
+                  AppSettings.openWIFISettings();
+                },
               ),
             ],
           ),
