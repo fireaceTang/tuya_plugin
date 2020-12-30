@@ -22,6 +22,7 @@ class _MyAppState extends State<MyApp> {
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   String ssid;
   String password;
+  String token="AYlcx5FX4RGZAJ";
 
 
 
@@ -65,34 +66,41 @@ class _MyAppState extends State<MyApp> {
               RaisedButton(
                 child: Text('EC 配网'),
                 onPressed: () {
-                  _formKey.currentState.save();
-                  dio.post("https://us-central1-my-first-action-project-96da6.cloudfunctions.net/get_tuya_pairing_token", data: {"tuya_user_id": "ay15956109400526lf4b"}).then((response) {
-                    if(response.data["code"]==200){
-                      print(response.data['data']['region']+response.data['data']['token']+response.data['data']['secret']);
-                      this._controller.setECNet(ssid, password,response.data['data']['region']+response.data['data']['token']+response.data['data']['secret']).then((value) {
-                        Fluttertoast.showToast(msg: value.msg.toString());
-                      });
-                    }
+                  this._controller.setECNet(ssid, password,token).then((value) {
+                    Fluttertoast.showToast(msg: value.msg.toString());
                   });
+                  _formKey.currentState.save();
+                  // dio.post("https://us-central1-my-first-action-project-96da6.cloudfunctions.net/get_tuya_pairing_token", data: {"tuya_user_id": "ay15956109400526lf4b"}).then((response) {
+                  //   if(response.data["code"]==200){
+                  //     print(response.data['data']['region']+response.data['data']['token']+response.data['data']['secret']);
+                  //     this._controller.setECNet(ssid, password,response.data['data']['region']+response.data['data']['token']+response.data['data']['secret']).then((value) {
+                  //       Fluttertoast.showToast(msg: value.msg.toString());
+                  //     });
+                  //   }
+                  // });
                 },
               ),
               RaisedButton(
                 child: Text('Ap 配网'),
                 onPressed: () {
-                  _formKey.currentState.save();
-                  dio.post("https://us-central1-my-first-action-project-96da6.cloudfunctions.net/get_tuya_pairing_token", data: {"tuya_user_id": "ay15956109400526lf4b"}).then((response) {
-                    if(response.data["code"]==200){
-                      print(response.data['data']['region']+response.data['data']['token']+response.data['data']['secret']);
-                      this._controller.setApNet(ssid, password,response.data['data']['region']+response.data['data']['token']+response.data['data']['secret']).then((value) {
-                        Fluttertoast.showToast(msg: value.msg.toString());
-                      });
-                    }
+                  this._controller.setApNet(ssid, password,token).then((value) {
+                    Fluttertoast.showToast(msg: value.msg.toString());
                   });
+                  // _formKey.currentState.save();
+                  // dio.post("https://us-central1-my-first-action-project-96da6.cloudfunctions.net/get_tuya_pairing_token", data: {"tuya_user_id": "ay15956109400526lf4b"}).then((response) {
+                  //   if(response.data["code"]==200){
+                  //     print(response.data['data']['region']+response.data['data']['token']+response.data['data']['secret']);
+                  //     this._controller.setApNet(ssid, password,response.data['data']['region']+response.data['data']['token']+response.data['data']['secret']).then((value) {
+                  //       Fluttertoast.showToast(msg: value.msg.toString());
+                  //     });
+                  //   }
+                  // });
                 },
               ),
               RaisedButton(
                 child: Text('uid 配网'),
                 onPressed: () {
+
                   this._controller.uidLogin("86", "ay1601999815506sfsRd","331b005c778bebb65984708ee234ea5b").then((value) {
                     Fluttertoast.showToast(msg: value.msg.toString());
                     print("接受到返回数据"+value.toString());
